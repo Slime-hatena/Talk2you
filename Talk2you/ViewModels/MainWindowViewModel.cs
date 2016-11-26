@@ -61,6 +61,8 @@ namespace Talk2you.ViewModels
          */
 
         VoicePlayer voicePlayer = new VoicePlayer();
+        MainWindow ViewSource = (MainWindow)System.Windows.Application.Current.MainWindow;
+
 
 
         #region VoiceFile変更通知プロパティ
@@ -78,7 +80,56 @@ namespace Talk2you.ViewModels
             }
         }
         #endregion
+        #region StartTime変更通知プロパティ
+        private double _StartTime;
 
+        public double StartTime
+        {
+            get
+            { return _StartTime; }
+            set
+            {
+                if (_StartTime == value)
+                    return;
+                _StartTime = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+        #region EndTime変更通知プロパティ
+        private double _EndTime;
+
+        public double EndTime
+        {
+            get
+            { return _EndTime; }
+            set
+            {
+                if (_EndTime == value)
+                    return;
+                _EndTime = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+        #region MaximumTime変更通知プロパティ
+        private double _MaximumTime;
+
+        public double MaximumTime
+        {
+            get
+            { return _MaximumTime; }
+            set
+            {
+                if (_MaximumTime == value)
+                    return;
+                _MaximumTime = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        // メソッドここから
 
         public void Initialize()
         {
@@ -86,20 +137,25 @@ namespace Talk2you.ViewModels
         }
 
         public void voiceFileSelectButtonClick()
-        {
+        {   //ファイルの選択からロードまでを行う
             string path = voicePlayer.SelectVoiceFile();
-            if(path != null)
-            {
-                VoiceFile = path;
-            }
+            if (path == null) return;
+
+            VoiceFile = path;
+            ViewSource.LoadVoice(VoiceFile);
         }
+
+
 
         public void allPlayButtonClick()
-        {
-            MainWindow view = (MainWindow)App.Current.MainWindow;
-            view.PlayVoice(VoiceFile);
+        {   //全再生ボタンをおした時
+            ViewSource.PlayVoice();
         }
 
+        public void MediaOpened()
+        {   //メディアを開いたときの処理
+            MaximumTime = ViewSource.GetVoiceDurationTime();    //ファイルの最大時間を更新する
+        }
 
 
     }

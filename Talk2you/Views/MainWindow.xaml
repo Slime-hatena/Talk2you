@@ -70,7 +70,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="charaNameText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="キャラ名" VerticalAlignment="Center"/>
-                <TextBox x:Name="charaNameBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="C:\hoge.wav" VerticalAlignment="Center" Width="200"/>
+                <TextBox x:Name="charaNameBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
                 <TextBlock x:Name="workNameText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作品名" VerticalAlignment="Center"/>
                 <TextBox x:Name="workNameBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="200"/>
 
@@ -86,7 +86,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="voiceFileText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="音声ファイル" VerticalAlignment="Center"/>
-                <TextBox x:Name="voiceFileBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VoiceFile}" VerticalAlignment="Center" Width="300"/>
+                <TextBox x:Name="voiceFileBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding VoiceFile}" VerticalAlignment="Center" Width="300"/>
                 <Button x:Name="voiceFileSelectButton" Grid.Column="2" Content="選択" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -143,12 +143,12 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="startTimeText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="開始位置" VerticalAlignment="Center"/>
-                <Slider x:Name="startSlider" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290"/>
+                <Slider x:Name="startSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding StartTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
                 <Button x:Name="startFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold"/>
                 <Button x:Name="startSlowPrevButton" Grid.Column="3" Content="〈" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
                 <Button x:Name="startSlowNextButton" Grid.Column="4" Content="〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
                 <Button x:Name="startFastNextButton" Grid.Column="5" Content="〉〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
-                <TextBlock x:Name="startTimeSecText" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0.000s" VerticalAlignment="Center"/>
+                <TextBlock x:Name="startTimeSecText" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StartTime,StringFormat={}{0:N3}s}" VerticalAlignment="Center"/>
 
             </Grid>
             <Grid Grid.Row="7">
@@ -162,17 +162,29 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="endTimeText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="終了位置" VerticalAlignment="Center"/>
-                <Slider x:Name="ehdSlider" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290"/>
+                <Slider x:Name="ehdSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding EndTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
                 <Button x:Name="endFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold"/>
                 <Button x:Name="endSlowPrevButton" Grid.Column="3" Content="〈" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
                 <Button x:Name="endSlowNextButton" Grid.Column="4" Content="〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
                 <Button x:Name="endFastNextButton" Grid.Column="5" Content="〉〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
-                <TextBlock x:Name="endTimeSecText" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0.000s" VerticalAlignment="Center"/>
+                <TextBlock x:Name="endTimeSecText" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding EndTime,StringFormat={}{0:N3}s}" VerticalAlignment="Center"/>
 
             </Grid>
             <Grid Grid.Row="8">
-                <Button x:Name="registrationButton" Content="登録" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,20,0"/>
-                <MediaElement x:Name="mediaElement" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="100"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <MediaElement x:Name="mediaElement" Grid.Column="0" HorizontalAlignment="Left" Height="20" VerticalAlignment="Center" Width="20">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MediaOpened">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="MediaOpened"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </MediaElement>
+                <Button x:Name="selectPlayButton" Grid.Column="1" Content="選択範囲再生" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100"/>
+                <Button x:Name="registrationButton" Grid.Column="2" Content="登録" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,20,0"/>
             </Grid>
 
             <Grid Grid.Row="9">

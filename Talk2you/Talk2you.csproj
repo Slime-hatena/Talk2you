@@ -76,6 +76,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DynamicJson.cs" />
+    <Compile Include="Models\JsonManager.cs" />
+    <Compile Include="Models\ProjectManager.cs" />
     <Compile Include="Models\VoicePlayer.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

@@ -18,42 +18,65 @@ namespace Talk2you.Views
 	 * ViewModelからの変更通知などの各種イベントを受け取る場合は、PropertyChangedWeakEventListenerや
      * CollectionChangedWeakEventListenerを使うと便利です。独自イベントの場合はLivetWeakEventListenerが使用できます。
      * クローズ時などに、LivetCompositeDisposableに格納した各種イベントリスナをDisposeする事でイベントハンドラの開放が容易に行えます。
-     *
      * WeakEventListenerなので明示的に開放せずともメモリリークは起こしませんが、できる限り明示的に開放するようにしましょう。
      */
 
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
+    /// MainWindow内のmediaElementの操作に使用
     /// </summary>
+    //mediaElementはmodel側では制御できそうに無いのでコードビハインド側で制御することにする。
+
     public partial class MainWindow : Window
     {
-        // public MediaElement VoiceElement = new MediaElement();
 
         public MainWindow()
         {
             InitializeComponent();
+            InitializeMediaElement();
         }
 
-        //mediaElementはmodel側では制御できそうに無いのでコードビハインド側で制御することにする。
-        public void PlayVoice(string filePath)
+        void InitializeMediaElement()
         {
+            //mediaElementを対話操作可能にする。
             mediaElement.LoadedBehavior = MediaState.Manual;
+        }
 
-            mediaElement.Volume = 1;
+        public void LoadVoice(string filePath)
+        {   //音声ファイルのロードを行う
+            mediaElement.Volume = 0.1;  // debug
+
             try
             {
                 mediaElement.Source = new Uri(filePath, UriKind.Absolute);
             }
             catch (UriFormatException e)
             {
+                MessageBox.Show("指定が間違っています。");
                 Console.WriteLine(e);
             }
             catch (ArgumentNullException e)
             {
+                MessageBox.Show("何かを入力してください。");
                 Console.WriteLine(e);
             }
+            mediaElement.Pause();   //開いたことをイベントハンドラで受け取りたいので一旦ポーズする。
+        }
+
+        public void PlayVoice()
+        {   // 指定したファイルパスの音声を再生する
             mediaElement.Play();
-            Console.WriteLine("[再生]" + filePath);
+            Console.WriteLine("[再生]" + mediaElement.Source);
+        }
+
+        public double GetVoiceDurationTime()
+        {   //ファイルの再生時間を秒数で返す
+            if (mediaElement.NaturalDuration.HasTimeSpan)
+            {
+                return mediaElement.NaturalDuration.TimeSpan.TotalSeconds;
+            }
+            MessageBox.Show("ファイルの再生時間が取得できませんでした。\nもう一度ファイルを開いてみてください。");
+            return 0;
         }
 
     }
