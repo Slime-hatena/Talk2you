@@ -8,7 +8,6 @@
 今後使うライブラリによって変更される可能性アリ
 
 ### Livet
-zlib/libpng
 https://twitter.com/ugaya40  
 http://ugaya40.hateblo.jp/entry/Livet  
   
