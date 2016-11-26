@@ -12,6 +12,7 @@ using Livet.EventListeners;
 using Livet.Messaging.Windows;
 
 using Talk2you.Models;
+using Talk2you.Views;
 
 namespace Talk2you.ViewModels
 {
@@ -59,18 +60,48 @@ namespace Talk2you.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
-        public string Text { get; set; }
+        VoicePlayer voicePlayer = new VoicePlayer();
+
+
+        #region VoiceFile変更通知プロパティ
+        private string _VoiceFile;
+        public string VoiceFile
+        {
+            get
+            { return _VoiceFile; }
+            set
+            {
+                if (_VoiceFile == value)
+                    return;
+                _VoiceFile = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
 
         public void Initialize()
         {
+            Console.WriteLine("Initialized");
         }
-
-
 
         public void voiceFileSelectButtonClick()
         {
-            Console.WriteLine("hoge");
+            string path = voicePlayer.SelectVoiceFile();
+            if(path != null)
+            {
+                VoiceFile = path;
+            }
         }
+
+        public void allPlayButtonClick()
+        {
+            MainWindow view = (MainWindow)App.Current.MainWindow;
+            view.PlayVoice(VoiceFile);
+        }
+
+
+
     }
 }
 

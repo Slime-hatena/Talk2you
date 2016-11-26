@@ -27,9 +27,33 @@ namespace Talk2you.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        // public MediaElement VoiceElement = new MediaElement();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        //mediaElementはmodel側では制御できそうに無いのでコードビハインド側で制御することにする。
+        public void PlayVoice(string filePath)
+        {
+            mediaElement.LoadedBehavior = MediaState.Manual;
+
+            mediaElement.Volume = 1;
+            try
+            {
+                mediaElement.Source = new Uri(filePath, UriKind.Absolute);
+            }
+            catch (UriFormatException e)
+            {
+                Console.WriteLine(e);
+            }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine(e);
+            }
+            mediaElement.Play();
+            Console.WriteLine("[再生]" + filePath);
         }
 
     }
