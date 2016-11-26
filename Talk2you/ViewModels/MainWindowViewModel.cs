@@ -59,8 +59,18 @@ namespace Talk2you.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
+        public string Text { get; set; }
+
         public void Initialize()
         {
         }
+
+
+
+        public void voiceFileSelectButtonClick()
+        {
+            Console.WriteLine("hoge");
+        }
     }
 }
+

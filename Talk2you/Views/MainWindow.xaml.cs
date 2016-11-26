@@ -31,5 +31,6 @@ namespace Talk2you.Views
         {
             InitializeComponent();
         }
+
     }
 }
