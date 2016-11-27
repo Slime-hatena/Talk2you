@@ -6,12 +6,23 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:Talk2you.Views"
         xmlns:vm="clr-namespace:Talk2you.ViewModels"
+        xmlns:m="clr-namespace:Talk2you.Models"
         xmlns:b="clr-namespace:Talk2you.Behavior"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         Title="talk2you" Height="600" Width="530">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="CategoryEnumKey" MethodName="GetValues" 
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="m:VoiceCategory"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
 
     <i:Interaction.Triggers>
 
@@ -57,7 +68,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="projectNameText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="プロジェクト名" VerticalAlignment="Center"/>
-                <TextBox x:Name="projectNameBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="200"/>
+                <TextBox x:Name="projectNameBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="200">
+                    <i:Interaction.Behaviors>
+                        <b:AlphabetsAndNumsBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <Button x:Name="openButton" Grid.Column="2" Content="開く" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50"/>
                 <Button x:Name="createButton" Grid.Column="3" Content="新規" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50"/>
                 <Button x:Name="saveButton" Grid.Column="4" Content="保存" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50"/>
@@ -112,14 +127,13 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="serifIdentifierText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ識別子" VerticalAlignment="Center"/>
-                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="300">
+                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="300" ToolTip="英数字とアンダースコア(_)ハイフン(-)が使用できます。">
                     <i:Interaction.Behaviors>
                         <b:AlphabetsAndNumsBehavior />
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <TextBlock x:Name="categoryText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="カテゴリ" VerticalAlignment="Center"/>
-                <ComboBox x:Name="categoryComboBox" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80"/>
-
+                <ComboBox x:Name="categoryComboBox" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" ItemsSource="{Binding Source={StaticResource CategoryEnumKey}}" SelectedItem="{Binding Category}"/>
             </Grid>
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
@@ -132,7 +146,7 @@
                 <TextBlock x:Name="serifPlainText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ本文" VerticalAlignment="Center"/>
                 <TextBox x:Name="serifPlainBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="300"/>
                 <TextBlock x:Name="volumeText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="音量" VerticalAlignment="Center"/>
-                <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VolumeChange}" VerticalAlignment="Center" Width="28" TextAlignment="Right" MaxLength="3">
+                <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VolumeChange,UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="28" TextAlignment="Right" MaxLength="3" ToolTip="0から100の範囲内で入力してください。">
                     <i:Interaction.Behaviors>
                         <b:NumsBehavior />
                     </i:Interaction.Behaviors>

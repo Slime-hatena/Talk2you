@@ -68,7 +68,6 @@ namespace Talk2you.ViewModels
         private const double kFastTime = 0.1;
         private const double kslowTime = 0.01;
 
-
         #region VoiceFile変更通知プロパティ
         private string _VoiceFile;
         public string VoiceFile
@@ -132,8 +131,24 @@ namespace Talk2you.ViewModels
             }
         }
         #endregion
+        #region Category変更通知プロパティ
+        private VoiceCategory _Category;
+
+        public VoiceCategory Category
+        {
+            get
+            { return _Category; }
+            set
+            { 
+                if (_Category == value)
+                    return;
+                _Category = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
         #region VolumeChange変更通知プロパティ
-        private int _VolumeChange;
+        private int _VolumeChange = 100;
 
         public int VolumeChange
         {
@@ -142,7 +157,7 @@ namespace Talk2you.ViewModels
                 return _VolumeChange;
             }
             set
-            { 
+            {
                 if (_VolumeChange == value)
                     return;
                 if (value > 100)
@@ -228,8 +243,12 @@ namespace Talk2you.ViewModels
             EndTime = voicePlayer.SetSliderTime(EndTime, MaximumTime, false, kFastTime);
         }
 
+        /// <summary>
+        /// 登録ボタンを押したときの処理
+        /// </summary>
         public void RegistrationButtonClick()
         {
+            // WordInformation info = new WordInformation();
 
         }
 
