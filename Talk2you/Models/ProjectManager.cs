@@ -7,48 +7,50 @@ using Livet;
 
 namespace Talk2you.Models
 {
+
+    /// <summary>
+    /// 声調のカテゴリ
+    /// </summary>
+    public enum VoiceCategory
+    {
+        normal,
+        whisper,
+        angry,
+        sad
+    }
+
     /// <summary>
     /// プロジェクト(キャラクター等全体のデータ)を管理するクラス
     /// </summary>
     public class ProjectManager : NotificationObject
     {
-        /// <summary>
-        /// 声調のカテゴリ
-        /// </summary>
-        enum category
-       {
-            normal,
-            whisper,
-            angry,
-            sad
-       }
 
         /// <summary>
         /// プロジェクトの情報を保存するクラス
         /// </summary>
-        class projectInformation
+        class ProjectInformation
         {   
-            string projectName { set; get; }
-            string charaName { set; get; }
-            string workName { set; get; }
+            string ProjectName { set; get; }
+            string CharaName { set; get; }
+            string WorkName { set; get; }
         }
 
         /// <summary>
         /// １つのセリフ情報を保存するクラス
         /// </summary>
-        class serifInformation
+        class WordsInformation
         {   
-            string identifier { set; get; }
-            string plainText { set; get; }
-            category category { set; get; }
-            int volume { set; get; }
-            double start { set; get; }
-            double end { set; get; }
-            string file { set; get; }
+            string Identifier { set; get; }
+            string Text { set; get; }
+            VoiceCategory Category { set; get; }
+            int Volume { set; get; }
+            double Start { set; get; }
+            double End { set; get; }
+            string File { set; get; }
         }
 
         /// <summary>
-        /// 動作中のアプリケーションのファイルパスを返します。
+        /// 動作中のアプリケーションのファイルパスを返す。
         /// </summary>
         /// <returns>string 動作しているフルパス</returns>
         public string GetLocationPath()
