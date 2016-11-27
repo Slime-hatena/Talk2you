@@ -20,34 +20,34 @@ namespace Talk2you.Models
     }
 
     /// <summary>
+    /// プロジェクトの情報を保存するクラス
+    /// </summary>
+    class ProjectInformation
+    {
+        public string ProjectName { set; get; }
+        public string CharaName { set; get; }
+        public string WorkName { set; get; }
+    }
+
+    /// <summary>
+    /// １つのセリフ情報を保存するクラス
+    /// </summary>
+    class WordsInformation
+    {
+        public string Identifier { set; get; }
+        public string Text { set; get; }
+        public VoiceCategory Category { set; get; }
+        public int Volume { set; get; }
+        public double Start { set; get; }
+        public double End { set; get; }
+        public string File { set; get; }
+    }
+
+    /// <summary>
     /// プロジェクト(キャラクター等全体のデータ)を管理するクラス
     /// </summary>
     public class ProjectManager : NotificationObject
     {
-
-        /// <summary>
-        /// プロジェクトの情報を保存するクラス
-        /// </summary>
-        class ProjectInformation
-        {   
-            string ProjectName { set; get; }
-            string CharaName { set; get; }
-            string WorkName { set; get; }
-        }
-
-        /// <summary>
-        /// １つのセリフ情報を保存するクラス
-        /// </summary>
-        class WordsInformation
-        {   
-            string Identifier { set; get; }
-            string Text { set; get; }
-            VoiceCategory Category { set; get; }
-            int Volume { set; get; }
-            double Start { set; get; }
-            double End { set; get; }
-            string File { set; get; }
-        }
 
         /// <summary>
         /// 動作中のアプリケーションのファイルパスを返す。
