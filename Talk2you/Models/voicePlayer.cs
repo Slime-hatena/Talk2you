@@ -6,6 +6,7 @@ using System.Windows.Controls;
 
 using Livet;
 using Microsoft.Win32;
+using System.Windows.Threading;
 
 namespace Talk2you.Models
 {
@@ -33,8 +34,23 @@ namespace Talk2you.Models
                 return ofd.FileName;
             }
             return null;
-
-
         }
+
+
+
+        public double SetSliderTime(double nowTime, double maxTime, bool isPrev, double absSlideTime)
+        {   //渡された値に移動する 最大/最小を越えるなら範囲内に戻す
+            if (isPrev)
+            {   //左に動く
+                if (nowTime - absSlideTime < 0)     return 0;
+                return nowTime - absSlideTime;
+            }
+            else
+            {   //右に動く
+                if (nowTime + absSlideTime > maxTime) return maxTime;
+                return nowTime + absSlideTime;
+            }
+        }
+
     }
 }

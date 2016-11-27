@@ -45,7 +45,6 @@ namespace Talk2you.Views
         public void LoadVoice(string filePath)
         {   //音声ファイルのロードを行う
             mediaElement.Volume = 0.1;  // debug
-
             try
             {
                 mediaElement.Source = new Uri(filePath, UriKind.Absolute);
@@ -60,7 +59,12 @@ namespace Talk2you.Views
                 MessageBox.Show("何かを入力してください。");
                 Console.WriteLine(e);
             }
-            mediaElement.Pause();   //開いたことをイベントハンドラで受け取りたいので一旦ポーズする。
+            alertEventMediaOpened();
+        }
+
+        void alertEventMediaOpened()
+        {      //開いたことをイベントハンドラで受け取りたいので一旦ポーズする。
+            mediaElement.Pause();
         }
 
         public void PlayVoice()

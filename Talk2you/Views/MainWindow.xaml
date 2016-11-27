@@ -144,10 +144,34 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="startTimeText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="開始位置" VerticalAlignment="Center"/>
                 <Slider x:Name="startSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding StartTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
-                <Button x:Name="startFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold"/>
-                <Button x:Name="startSlowPrevButton" Grid.Column="3" Content="〈" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
-                <Button x:Name="startSlowNextButton" Grid.Column="4" Content="〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
-                <Button x:Name="startFastNextButton" Grid.Column="5" Content="〉〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
+                <Button x:Name="startFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="StartFastPrevButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="startSlowPrevButton" Grid.Column="3" Content="〈" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="StartSlowPrevButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="startSlowNextButton" Grid.Column="4" Content="〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="StartSlowNextButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="startFastNextButton" Grid.Column="5" Content="〉〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="StartFastNextButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
                 <TextBlock x:Name="startTimeSecText" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StartTime,StringFormat={}{0:N3}s}" VerticalAlignment="Center"/>
 
             </Grid>
@@ -163,10 +187,34 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="endTimeText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="終了位置" VerticalAlignment="Center"/>
                 <Slider x:Name="ehdSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding EndTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
-                <Button x:Name="endFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold"/>
-                <Button x:Name="endSlowPrevButton" Grid.Column="3" Content="〈" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
-                <Button x:Name="endSlowNextButton" Grid.Column="4" Content="〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
-                <Button x:Name="endFastNextButton" Grid.Column="5" Content="〉〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold"/>
+                <Button x:Name="endFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="EndFastPrevButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="endSlowPrevButton" Grid.Column="3" Content="〈" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="EndSlowPrevButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="endSlowNextButton" Grid.Column="4" Content="〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="EndSlowNextButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="endFastNextButton" Grid.Column="5" Content="〉〉" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="EndFastNextButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
                 <TextBlock x:Name="endTimeSecText" Grid.Column="6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding EndTime,StringFormat={}{0:N3}s}" VerticalAlignment="Center"/>
 
             </Grid>

@@ -63,6 +63,9 @@ namespace Talk2you.ViewModels
         VoicePlayer voicePlayer = new VoicePlayer();
         MainWindow ViewSource = (MainWindow)System.Windows.Application.Current.MainWindow;
 
+        //巻き戻し早送り移動秒数指定
+        private const double kFastTime = 0.1;
+        private const double kslowTime = 0.01;
 
 
         #region VoiceFile変更通知プロパティ
@@ -149,6 +152,7 @@ namespace Talk2you.ViewModels
 
         public void allPlayButtonClick()
         {   //全再生ボタンをおした時
+            ViewSource.LoadVoice(VoiceFile);
             ViewSource.PlayVoice();
         }
 
@@ -157,6 +161,41 @@ namespace Talk2you.ViewModels
             MaximumTime = ViewSource.GetVoiceDurationTime();    //ファイルの最大時間を更新する
         }
 
+        // 送り戻し機能郡
+        public void StartFastPrevButton()
+        {   //スタート早戻しボタン
+            StartTime = voicePlayer.SetSliderTime(StartTime, MaximumTime, true, kFastTime);
+        }
+        public void StartSlowPrevButton()
+        {   //スタート遅戻しボタン
+            StartTime = voicePlayer.SetSliderTime(StartTime, MaximumTime, true, kslowTime);
+        }
+        public void StartSlowNextButton()
+        {   //スタート早戻しボタン
+            StartTime = voicePlayer.SetSliderTime(StartTime, MaximumTime, false, kslowTime);
+        }
+        public void StartFastNextButton()
+        {   //スタート遅戻しボタン
+            StartTime = voicePlayer.SetSliderTime(StartTime, MaximumTime, false, kFastTime);
+        }
+        public void EndFastPrevButton()
+        {   //エンド早戻しボタン
+            EndTime = voicePlayer.SetSliderTime(EndTime, MaximumTime, true, kFastTime);
+        }
+        public void EndSlowPrevButton()
+        {   //スタート遅戻しボタン
+            EndTime = voicePlayer.SetSliderTime(EndTime, MaximumTime, true, kslowTime);
+        }
+        public void EndSlowNextButton()
+        {   //スタート早戻しボタン
+            EndTime = voicePlayer.SetSliderTime(EndTime, MaximumTime, false, kslowTime);
+        }
+        public void EndFastNextButton()
+        {   //スタート遅戻しボタン
+            EndTime = voicePlayer.SetSliderTime(EndTime, MaximumTime, false, kFastTime);
+        }
+
+        
 
     }
 }
