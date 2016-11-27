@@ -221,6 +221,7 @@
             <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
@@ -231,11 +232,25 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </MediaElement>
-                <Button x:Name="selectPlayButton" Grid.Column="1" Content="選択範囲再生" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100"/>
-                <Button x:Name="registrationButton" Grid.Column="2" Content="登録" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,20,0"/>
+                <Button x:Name="stopButton" Grid.Column="1" Content="再生停止" HorizontalAlignment="Right" VerticalAlignment="Center" Width="70">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="StopButtonClick"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="selectPlayButton" Grid.Column="2" Content="選択範囲再生" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="SelectPlayButton"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button x:Name="registrationButton" Grid.Column="3" Content="登録" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,20,0"/>
             </Grid>
 
             <Grid Grid.Row="9">
+                <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="325" Width="505"/>
 
             </Grid>
 

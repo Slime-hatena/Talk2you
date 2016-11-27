@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Talk2you.Views
 {
@@ -30,20 +31,30 @@ namespace Talk2you.Views
     public partial class MainWindow : Window
     {
 
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             InitializeMediaElement();
         }
 
+        /// <summary>
+        /// mediaElementの初期化処理
+        /// </summary>
         void InitializeMediaElement()
         {
             //mediaElementを対話操作可能にする。
             mediaElement.LoadedBehavior = MediaState.Manual;
         }
 
+        /// <summary>
+        /// 音声ファイルのロードを行う
+        /// </summary>
+        /// <param name="filePath">音声ファイルのフルパス</param>
         public void LoadVoice(string filePath)
-        {   //音声ファイルのロードを行う
+        {
             mediaElement.Volume = 0.1;  // debug
             try
             {
@@ -62,19 +73,67 @@ namespace Talk2you.Views
             alertEventMediaOpened();
         }
 
+        /// <summary>
+        /// 開いたことをイベントハンドラで受け取りたいので一旦ポーズするためのメソッド。
+        /// </summary>
         void alertEventMediaOpened()
-        {      //開いたことをイベントハンドラで受け取りたいので一旦ポーズする。
+        {      
             mediaElement.Pause();
         }
 
+        /// <summary>
+        /// 指定したファイルパスの音声を再生する。
+        /// </summary>
         public void PlayVoice()
-        {   // 指定したファイルパスの音声を再生する
+        {   
             mediaElement.Play();
             Console.WriteLine("[再生]" + mediaElement.Source);
         }
 
+        /// <summary>
+        ///  指定位置にシークする。
+        /// </summary>
+        /// <param name="time">シークしたい秒数</param>
+        public void SeekVoice(double time)
+        {
+            mediaElement.Position = TimeSpan.FromSeconds(time);
+        }
+
+        /// <summary>
+        /// 指定したファイルパスの音声を停止する。
+        /// </summary>
+        public void StopVoice()
+        { 
+            mediaElement.Stop();
+            Console.WriteLine("[停止]" + mediaElement.Source);
+        }
+
+        /// <summary>
+        /// 指定位置にシークをし、そこから指定秒数までを再生する。
+        /// </summary>
+        /// <param name="startTime">再生したい秒数</param>
+        /// <param name="stopTime">そこから何秒再生するか</param>
+        public void SeekPlayAndTimerStop(double startTime, double stopTime)
+        {
+            Console.WriteLine("[指定]" + stopTime + "s");
+            DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(stopTime) };
+            SeekVoice(startTime);
+            PlayVoice();
+            timer.Start();
+            timer.Tick += (s, args) =>
+            {
+                // TimeSpan.FromSeconds(stopTime)秒後に実行
+                timer.Stop();
+                StopVoice();
+            };
+        }
+
+        /// <summary>
+        /// ファイルの長さを秒数で返す
+        /// </summary>
+        /// <returns>再生時間</returns>
         public double GetVoiceDurationTime()
-        {   //ファイルの再生時間を秒数で返す
+        {
             if (mediaElement.NaturalDuration.HasTimeSpan)
             {
                 return mediaElement.NaturalDuration.TimeSpan.TotalSeconds;

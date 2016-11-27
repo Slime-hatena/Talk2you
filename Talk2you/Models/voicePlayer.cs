@@ -36,8 +36,6 @@ namespace Talk2you.Models
             return null;
         }
 
-
-
         public double SetSliderTime(double nowTime, double maxTime, bool isPrev, double absSlideTime)
         {   //渡された値に移動する 最大/最小を越えるなら範囲内に戻す
             if (isPrev)

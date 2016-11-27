@@ -152,8 +152,17 @@ namespace Talk2you.ViewModels
 
         public void allPlayButtonClick()
         {   //全再生ボタンをおした時
-            ViewSource.LoadVoice(VoiceFile);
             ViewSource.PlayVoice();
+        }
+
+        public void StopButtonClick()
+        {   //停止ボタンをおした時
+            ViewSource.StopVoice();
+        }
+
+        public void SelectPlayButton()
+        {   //範囲再生ボタンを押したときの処理
+            ViewSource.SeekPlayAndTimerStop(StartTime, EndTime - StartTime);
         }
 
         public void MediaOpened()
