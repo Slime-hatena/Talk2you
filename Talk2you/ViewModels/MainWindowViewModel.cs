@@ -13,6 +13,7 @@ using Livet.Messaging.Windows;
 
 using Talk2you.Models;
 using Talk2you.Views;
+using System.Windows;
 
 namespace Talk2you.ViewModels
 {
@@ -131,6 +132,29 @@ namespace Talk2you.ViewModels
             }
         }
         #endregion
+        #region VolumeChange変更通知プロパティ
+        private int _VolumeChange;
+
+        public int VolumeChange
+        {
+            get
+            {
+                return _VolumeChange;
+            }
+            set
+            { 
+                if (_VolumeChange == value)
+                    return;
+                if (value > 100)
+                {
+                    value = 100;
+                    MessageBox.Show("101%以上は指定できません。\n100%として扱われます。");
+                }
+                _VolumeChange = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         // メソッドここから
 
@@ -152,7 +176,7 @@ namespace Talk2you.ViewModels
 
         public void allPlayButtonClick()
         {   //全再生ボタンをおした時
-            ViewSource.PlayVoice();
+            ViewSource.PlayVoice(VolumeChange / 100.0);
         }
 
         public void StopButtonClick()
@@ -162,7 +186,7 @@ namespace Talk2you.ViewModels
 
         public void SelectPlayButton()
         {   //範囲再生ボタンを押したときの処理
-            ViewSource.SeekPlayAndTimerStop(StartTime, EndTime - StartTime);
+            ViewSource.SeekPlayAndTimerStop(StartTime, EndTime - StartTime, VolumeChange / 100.0);
         }
 
         public void MediaOpened()
@@ -204,7 +228,10 @@ namespace Talk2you.ViewModels
             EndTime = voicePlayer.SetSliderTime(EndTime, MaximumTime, false, kFastTime);
         }
 
-        
+        public void RegistrationButtonClick()
+        {
+
+        }
 
     }
 }

@@ -18,11 +18,10 @@ namespace Talk2you.Models
 
         public string SelectVoiceFile()
         {
-            //OpenFileDialogクラスのインスタンスを作成
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.FileName = "";
             ofd.InitialDirectory = @"C:\";
-            ofd.Filter = "wavファイル(*.wav)|*.wav|すべてのファイル(*.*)|*.*";
+            ofd.Filter = "音声ファイル(*.wav *.mp3)|*.wav;*.mp3|すべてのファイル(*.*)|*.*";
             ofd.FilterIndex = 1;
             ofd.Title = "音声ファイルを選択";
             ofd.RestoreDirectory = true;

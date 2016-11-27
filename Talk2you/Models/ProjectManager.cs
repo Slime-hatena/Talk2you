@@ -6,23 +6,22 @@ using System.Text;
 using Livet;
 
 namespace Talk2you.Models
-{
-
+{ 
     /// <summary>
     /// 声調のカテゴリ
     /// </summary>
     public enum VoiceCategory
     {
-        normal,
-        whisper,
-        angry,
-        sad
+        Normal,
+        Whisper,
+        Angry,
+        Sad
     }
 
     /// <summary>
     /// プロジェクトの情報を保存するクラス
     /// </summary>
-    class ProjectInformation
+    public class ProjectInformation
     {
         public string ProjectName { set; get; }
         public string CharaName { set; get; }
@@ -32,7 +31,7 @@ namespace Talk2you.Models
     /// <summary>
     /// １つのセリフ情報を保存するクラス
     /// </summary>
-    class WordsInformation
+    public class WordInformation
     {
         public string Identifier { set; get; }
         public string Text { set; get; }
@@ -53,12 +52,9 @@ namespace Talk2you.Models
         /// 動作中のアプリケーションのファイルパスを返す。
         /// </summary>
         /// <returns>string 動作しているフルパス</returns>
-        public string GetLocationPath()
+        public static string GetLocationPath()
         {   //動作しているパスを返す
             return System.Reflection.Assembly.GetExecutingAssembly().Location;
         }
-
-
-
     }
 }

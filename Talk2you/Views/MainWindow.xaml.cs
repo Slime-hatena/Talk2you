@@ -55,7 +55,6 @@ namespace Talk2you.Views
         /// <param name="filePath">音声ファイルのフルパス</param>
         public void LoadVoice(string filePath)
         {
-            mediaElement.Volume = 0.1;  // debug
             try
             {
                 mediaElement.Source = new Uri(filePath, UriKind.Absolute);
@@ -84,10 +83,11 @@ namespace Talk2you.Views
         /// <summary>
         /// 指定したファイルパスの音声を再生する。
         /// </summary>
-        public void PlayVoice()
-        {   
+        public void PlayVoice(double volume)
+        {
+            mediaElement.Volume = volume;
             mediaElement.Play();
-            Console.WriteLine("[再生]" + mediaElement.Source);
+            Console.WriteLine("[再生]" + mediaElement.Source + "\n[音量]" + volume);
         }
 
         /// <summary>
@@ -113,12 +113,12 @@ namespace Talk2you.Views
         /// </summary>
         /// <param name="startTime">再生したい秒数</param>
         /// <param name="stopTime">そこから何秒再生するか</param>
-        public void SeekPlayAndTimerStop(double startTime, double stopTime)
+        public void SeekPlayAndTimerStop(double startTime, double stopTime, double volume)
         {
             Console.WriteLine("[指定]" + stopTime + "s");
             DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(stopTime) };
             SeekVoice(startTime);
-            PlayVoice();
+            PlayVoice(volume);
             timer.Start();
             timer.Tick += (s, args) =>
             {

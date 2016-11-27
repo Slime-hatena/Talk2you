@@ -6,6 +6,7 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:Talk2you.Views"
         xmlns:vm="clr-namespace:Talk2you.ViewModels"
+        xmlns:b="clr-namespace:Talk2you.Behavior"
         Title="talk2you" Height="600" Width="530">
 
     <Window.DataContext>
@@ -111,7 +112,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="serifIdentifierText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ識別子" VerticalAlignment="Center"/>
-                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="300"/>
+                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="300">
+                    <i:Interaction.Behaviors>
+                        <b:AlphabetsAndNumsBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <TextBlock x:Name="categoryText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="カテゴリ" VerticalAlignment="Center"/>
                 <ComboBox x:Name="categoryComboBox" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80"/>
 
@@ -127,7 +132,11 @@
                 <TextBlock x:Name="serifPlainText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ本文" VerticalAlignment="Center"/>
                 <TextBox x:Name="serifPlainBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="300"/>
                 <TextBlock x:Name="volumeText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="音量" VerticalAlignment="Center"/>
-                <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="100" VerticalAlignment="Center" Width="28" TextAlignment="Right"/>
+                <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VolumeChange}" VerticalAlignment="Center" Width="28" TextAlignment="Right" MaxLength="3">
+                    <i:Interaction.Behaviors>
+                        <b:NumsBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <TextBlock x:Name="volumeTextPercent" Grid.Column="4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="%" VerticalAlignment="Center"/>
 
 
@@ -246,7 +255,13 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button x:Name="registrationButton" Grid.Column="3" Content="登録" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,20,0"/>
+                <Button x:Name="registrationButton" Grid.Column="3" Content="登録" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,0,20,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="RegistrationButtonClick"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </Grid>
 
             <Grid Grid.Row="9">
