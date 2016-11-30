@@ -14,6 +14,7 @@ using Livet.Messaging.Windows;
 using Talk2you.Models;
 using Talk2you.Views;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Talk2you.ViewModels
 {
@@ -61,12 +62,16 @@ namespace Talk2you.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
-        VoicePlayer voicePlayer = new VoicePlayer();
-        MainWindow ViewSource = (MainWindow)System.Windows.Application.Current.MainWindow;
+        VoicePlayer voicePlayer = new VoicePlayer();        //dataList用
+        MainWindow ViewSource = (MainWindow)Application.Current.MainWindow;
+        public ObservableCollection<WordInformation> list;
 
         //巻き戻し早送り移動秒数指定
         private const double kFastTime = 0.1;
         private const double kslowTime = 0.01;
+
+        // 時間を切り捨てる際 少数何桁で切り捨てるか
+        private const int kRoundBy = 3;
 
         #region VoiceFile変更通知プロパティ
         private string _VoiceFile;
@@ -94,7 +99,7 @@ namespace Talk2you.ViewModels
             {
                 if (_StartTime == value)
                     return;
-                _StartTime = value;
+                _StartTime = Math.Round(value, kRoundBy, MidpointRounding.AwayFromZero);
                 RaisePropertyChanged();
             }
         }
@@ -110,7 +115,7 @@ namespace Talk2you.ViewModels
             {
                 if (_EndTime == value)
                     return;
-                _EndTime = value;
+                _EndTime = Math.Round(value, kRoundBy, MidpointRounding.AwayFromZero);
                 RaisePropertyChanged();
             }
         }
@@ -139,7 +144,7 @@ namespace Talk2you.ViewModels
             get
             { return _Category; }
             set
-            { 
+            {
                 if (_Category == value)
                     return;
                 _Category = value;
@@ -170,12 +175,45 @@ namespace Talk2you.ViewModels
             }
         }
         #endregion
+        #region Identifier変更通知プロパティ
+        private string _Identifier;
+
+        public string Identifier
+        {
+            get
+            { return _Identifier; }
+            set
+            { 
+                if (_Identifier == value)
+                    return;
+                _Identifier = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+        #region VoiceText変更通知プロパティ
+        private string _VoiceText;
+
+        public string VoiceText
+        {
+            get
+            { return _VoiceText; }
+            set
+            { 
+                if (_VoiceText == value)
+                    return;
+                _VoiceText = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
 
         // メソッドここから
 
         public void Initialize()
         {
-            Console.WriteLine("Initialized");
+            list = new ObservableCollection<WordInformation>();
+            ViewSource.dataGrid.ItemsSource = list;
         }
 
         public void voiceFileSelectButtonClick()
@@ -248,9 +286,37 @@ namespace Talk2you.ViewModels
         /// </summary>
         public void RegistrationButtonClick()
         {
-            // WordInformation info = new WordInformation();
+            // todo 識別子がオンリーワンかを判定する処理を追加する 12/1
+            WordInformation list = new WordInformation()
+            {
+                Identifier = Identifier,
+                Text = VoiceText,
+                Category = Category,
+            Volume = VolumeChange,
+            Start = StartTime,
+            End = EndTime,
+            File = VoiceFile
+            };
+            RegistrationDataGrid(list);
+    }
 
+        /// <summary>
+        /// dataGridに項目を追加する
+        /// </summary>
+        /// <param name="data">追加したい項目</param>
+        public void RegistrationDataGrid(WordInformation data)
+        {
+            list.Add(data);
         }
+
+        /// <summary>
+        /// データグリッドのコンテキストメニューの再生をおした時
+        /// </summary>
+        public void DataGridClickPlay()
+        {   //まだエラーが出るよ
+            Console.WriteLine("てすと");
+        }
+
 
     }
 }
