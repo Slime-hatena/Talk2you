@@ -183,7 +183,7 @@ namespace Talk2you.ViewModels
             get
             { return _Identifier; }
             set
-            { 
+            {
                 if (_Identifier == value)
                     return;
                 _Identifier = value;
@@ -199,7 +199,7 @@ namespace Talk2you.ViewModels
             get
             { return _VoiceText; }
             set
-            { 
+            {
                 if (_VoiceText == value)
                     return;
                 _VoiceText = value;
@@ -210,14 +210,20 @@ namespace Talk2you.ViewModels
 
         // メソッドここから
 
+        /// <summary>
+        ///  初期化処理
+        /// </summary>
         public void Initialize()
         {
             list = new ObservableCollection<WordInformation>();
             ViewSource.dataGrid.ItemsSource = list;
         }
 
+        /// <summary>
+        /// ファイル選択ボタンが押されたときの処理 ファイルの選択からロードまでを行う
+        /// </summary>
         public void voiceFileSelectButtonClick()
-        {   //ファイルの選択からロードまでを行う
+        {
             string path = voicePlayer.SelectVoiceFile();
             if (path == null) return;
 
@@ -226,24 +232,35 @@ namespace Talk2you.ViewModels
         }
 
 
-
+        /// <summary>
+        /// 全再生ボタンをおした時
+        /// </summary>
         public void allPlayButtonClick()
-        {   //全再生ボタンをおした時
+        {
             ViewSource.PlayVoice(VolumeChange / 100.0);
         }
 
+        /// <summary>
+        /// 停止ボタンをおした時
+        /// </summary>
         public void StopButtonClick()
-        {   //停止ボタンをおした時
+        {
             ViewSource.StopVoice();
         }
 
+        /// <summary>
+        /// 範囲再生ボタンを押したときの処理
+        /// </summary>
         public void SelectPlayButton()
-        {   //範囲再生ボタンを押したときの処理
+        {
             ViewSource.SeekPlayAndTimerStop(StartTime, EndTime - StartTime, VolumeChange / 100.0);
         }
 
+        /// <summary>
+        /// メディアを開いたときの処理
+        /// </summary>
         public void MediaOpened()
-        {   //メディアを開いたときの処理
+        {
             MaximumTime = ViewSource.GetVoiceDurationTime();    //ファイルの最大時間を更新する
         }
 
@@ -292,13 +309,13 @@ namespace Talk2you.ViewModels
                 Identifier = Identifier,
                 Text = VoiceText,
                 Category = Category,
-            Volume = VolumeChange,
-            Start = StartTime,
-            End = EndTime,
-            File = VoiceFile
+                Volume = VolumeChange,
+                Start = StartTime,
+                End = EndTime,
+                File = VoiceFile
             };
             RegistrationDataGrid(list);
-    }
+        }
 
         /// <summary>
         /// dataGridに項目を追加する
