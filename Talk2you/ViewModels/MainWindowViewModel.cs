@@ -330,10 +330,25 @@ namespace Talk2you.ViewModels
         /// データグリッドのコンテキストメニューの再生をおした時
         /// </summary>
         public void DataGridClickPlay()
-        {   //まだエラーが出るよ
+        {
             Console.WriteLine("てすと");
         }
 
+        /// <summary>
+        /// dataGridに登録されている項目を編集出来るよう各変数にセットし直す
+        /// </summary>
+        public void DataGridClickEdit()
+        {
+            Console.WriteLine("てすと");
+        }
+
+        /// <summary>
+        /// dataGridに登録されている項目を削除する
+        /// </summary>
+        public void DataGridClickDelete()
+        {
+            Console.WriteLine("てすと");
+        }
 
     }
 }

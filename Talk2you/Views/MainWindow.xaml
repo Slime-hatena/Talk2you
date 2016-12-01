@@ -290,10 +290,27 @@
                 <DataGrid x:Name="dataGrid" ItemsSource="{Binding}"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="325" Width="505">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Name="ContextMenu_Play" Header="再生">
-                                <i:EventTrigger EventName="Click">
-                                    <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DataGridClickPlay"/>
-                                </i:EventTrigger>
+                            <MenuItem Header="再生">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DataGridClickPlay"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="----------"/>
+                            <MenuItem Header="編集">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DataGridClickEdit"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem Header="削除">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DataGridClickDelete"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </MenuItem>
                         </ContextMenu>
                     </DataGrid.ContextMenu>

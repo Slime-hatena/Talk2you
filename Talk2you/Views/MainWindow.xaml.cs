@@ -142,7 +142,5 @@ namespace Talk2you.Views
             MessageBox.Show("ファイルの再生時間が取得できませんでした。\nもう一度ファイルを開いてみてください。");
             return 0;
         }
-      
-
     }
 }
