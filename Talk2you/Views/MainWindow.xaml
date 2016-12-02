@@ -281,7 +281,7 @@
             </Grid>
 
             <Grid Grid.Row="9">
-                <DataGrid x:Name="dataGrid" ItemsSource="{Binding Identifier}"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="325" Width="505">
+                <DataGrid x:Name="dataGrid" ItemsSource="{Binding List}" AutoGenerateColumns="False"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="325" Width="505">
                     <DataGrid.Resources>
                         <ContextMenu x:Key="data">
                             <MenuItem Header="再生">
@@ -302,8 +302,81 @@
                             </MenuItem>
                         </ContextMenu>
                     </DataGrid.Resources>
+                    
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding VoiceText}" IsReadOnly="True" CanUserSort="False" Width="40">
+                        <DataGridTextColumn Header="識別子" Binding="{Binding Identifier}" IsReadOnly="True" CanUserSort="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="本文"  Binding="{Binding Text}" IsReadOnly="True" CanUserSort="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="カテゴリ" Binding="{Binding Category}" IsReadOnly="True" CanUserSort="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="音量" Binding="{Binding Volume}" IsReadOnly="True" CanUserSort="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="開始秒数" Binding="{Binding Start}" IsReadOnly="True" CanUserSort="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="終了秒数" Binding="{Binding End}" IsReadOnly="True" CanUserSort="False">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="ファイル" Binding="{Binding File}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
