@@ -22,12 +22,6 @@
                 <x:Type TypeName="m:VoiceCategory"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="dataGird" MethodName="GetValues" 
-                        ObjectType="{x:Type m:WordInformation}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="m:WordInformation"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </Window.Resources>
 
 
@@ -287,9 +281,9 @@
             </Grid>
 
             <Grid Grid.Row="9">
-                <DataGrid x:Name="dataGrid" ItemsSource="{Binding}"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="325" Width="505">
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
+                <DataGrid x:Name="dataGrid" ItemsSource="{Binding Identifier}"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="325" Width="505">
+                    <DataGrid.Resources>
+                        <ContextMenu x:Key="data">
                             <MenuItem Header="再生">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
@@ -307,7 +301,20 @@
                                 </i:Interaction.Triggers>
                             </MenuItem>
                         </ContextMenu>
-                    </DataGrid.ContextMenu>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding VoiceText}" IsReadOnly="True" CanUserSort="False" Width="40">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <StaticResource ResourceKey="data"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
                 </DataGrid>
 
             </Grid>

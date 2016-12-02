@@ -64,7 +64,6 @@ namespace Talk2you.ViewModels
 
         VoicePlayer voicePlayer = new VoicePlayer();        //dataList用
         MainWindow ViewSource = (MainWindow)Application.Current.MainWindow;
-        public ObservableCollection<WordInformation> list;
 
         //巻き戻し早送り移動秒数指定
         private const double kFastTime = 0.1;
@@ -73,6 +72,24 @@ namespace Talk2you.ViewModels
         // 時間を切り捨てる際 少数何桁で切り捨てるか
         private const int kRoundBy = 3;
 
+
+        #region List変更通知プロパティ
+        private ObservableCollection<WordInformation> _List = new ObservableCollection<WordInformation>();
+
+        public ObservableCollection<WordInformation> List
+
+        {
+            get
+            { return _List; }
+            set
+            { 
+                if (_List == value)
+                    return;
+                _List = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
         #region VoiceFile変更通知プロパティ
         private string _VoiceFile;
         public string VoiceFile
@@ -215,8 +232,6 @@ namespace Talk2you.ViewModels
         /// </summary>
         public void Initialize()
         {
-            list = new ObservableCollection<WordInformation>();
-            ViewSource.dataGrid.ItemsSource = list;
         }
 
         /// <summary>
@@ -304,7 +319,7 @@ namespace Talk2you.ViewModels
         public void RegistrationButtonClick()
         {
             // todo 識別子がオンリーワンかを判定する処理を追加する 12/1
-            WordInformation list = new WordInformation()
+            WordInformation newList = new WordInformation()
             {
                 Identifier = Identifier,
                 Text = VoiceText,
@@ -314,7 +329,9 @@ namespace Talk2you.ViewModels
                 End = EndTime,
                 File = VoiceFile
             };
-            RegistrationDataGrid(list);
+            // List += newList;
+            return;
+            RegistrationDataGrid(newList);
         }
 
         /// <summary>
@@ -323,7 +340,7 @@ namespace Talk2you.ViewModels
         /// <param name="data">追加したい項目</param>
         public void RegistrationDataGrid(WordInformation data)
         {
-            list.Add(data);
+           // list.Add(data);
         }
 
         /// <summary>
