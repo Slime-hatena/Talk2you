@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Talk2you.Models;
+using Talk2you.ViewModels;
 
 namespace Talk2you.Views
 {
@@ -31,6 +33,8 @@ namespace Talk2you.Views
 
     public partial class MainWindow : Window
     {
+
+
 
         /// <summary>
         /// 初期化処理
@@ -77,7 +81,7 @@ namespace Talk2you.Views
         /// 開いたことをイベントハンドラで受け取りたいので一旦ポーズするためのメソッド。
         /// </summary>
         void alertEventMediaOpened()
-        {      
+        {
             mediaElement.Pause();
         }
 
@@ -104,7 +108,7 @@ namespace Talk2you.Views
         /// 指定したファイルパスの音声を停止する。
         /// </summary>
         public void StopVoice()
-        { 
+        {
             mediaElement.Stop();
             Console.WriteLine("[停止]" + mediaElement.Source);
         }
@@ -141,6 +145,24 @@ namespace Talk2you.Views
             }
             MessageBox.Show("ファイルの再生時間が取得できませんでした。\nもう一度ファイルを開いてみてください。");
             return 0;
+        }
+
+        private void DataGridClickEdit(object sender, RoutedEventArgs e)
+        {
+                
+
+            if (((MenuItem)sender).DataContext is WordInformation) {
+                var data = (WordInformation)((MenuItem)sender).DataContext;
+                //データコンテキストの型はWordInformationやで
+            }else
+            {
+                Console.WriteLine("ちがうやで");
+                Console.WriteLine(DataContext);
+            }
+
+
+            //todo ここでエラー出る 12/2
+            //DataGridEdit(data);
         }
     }
 }

@@ -337,15 +337,16 @@ namespace Talk2you.ViewModels
         /// <summary>
         /// dataGridに登録されている項目を編集出来るよう各変数にセットし直す
         /// </summary>
-        public void DataGridClickEdit()
+        public void DataGridEdit(WordInformation data)
         {
+            Console.WriteLine(data);
             Console.WriteLine("てすと");
         }
 
         /// <summary>
         /// dataGridに登録されている項目を削除する
         /// </summary>
-        public void DataGridClickDelete()
+        public void DataGridDelete()
         {
             Console.WriteLine("てすと");
         }
