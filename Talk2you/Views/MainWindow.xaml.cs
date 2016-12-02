@@ -149,8 +149,6 @@ namespace Talk2you.Views
 
         private void DataGridClickEdit(object sender, RoutedEventArgs e)
         {
-                
-
             if (((MenuItem)sender).DataContext is WordInformation) {
                 var data = (WordInformation)((MenuItem)sender).DataContext;
                 //データコンテキストの型はWordInformationやで
@@ -159,10 +157,6 @@ namespace Talk2you.Views
                 Console.WriteLine("ちがうやで");
                 Console.WriteLine(DataContext);
             }
-
-
-            //todo ここでエラー出る 12/2
-            //DataGridEdit(data);
         }
     }
 }

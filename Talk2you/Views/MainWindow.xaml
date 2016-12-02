@@ -129,7 +129,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="serifIdentifierText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ識別子" VerticalAlignment="Center"/>
-                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Identifier}" VerticalAlignment="Center" Width="300" ToolTip="英数字とアンダースコア(_)ハイフン(-)が使用できます。">
+                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Identifier, Mode=TwoWay}" VerticalAlignment="Center" Width="300" ToolTip="英数字とアンダースコア(_)ハイフン(-)が使用できます。">
                     <i:Interaction.Behaviors>
                         <b:AlphabetsAndNumsBehavior />
                     </i:Interaction.Behaviors>
@@ -146,7 +146,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="serifPlainText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ本文" VerticalAlignment="Center"/>
-                <TextBox x:Name="serifPlainBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VoiceText}" VerticalAlignment="Center" Width="300"/>
+                <TextBox x:Name="serifPlainBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VoiceText, Mode=TwoWay}" VerticalAlignment="Center" Width="300"/>
                 <TextBlock x:Name="volumeText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="音量" VerticalAlignment="Center"/>
                 <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VolumeChange,UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="28" TextAlignment="Right" MaxLength="3" ToolTip="0から100の範囲内で入力してください。">
                     <i:Interaction.Behaviors>
@@ -306,6 +306,7 @@
                         <DataGridTextColumn Binding="{Binding VoiceText}" IsReadOnly="True" CanUserSort="False" Width="40">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="ContextMenu">
                                         <Setter.Value>
                                             <StaticResource ResourceKey="data"/>

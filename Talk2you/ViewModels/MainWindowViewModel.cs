@@ -82,7 +82,7 @@ namespace Talk2you.ViewModels
             get
             { return _List; }
             set
-            { 
+            {
                 if (_List == value)
                     return;
                 _List = value;
@@ -329,8 +329,6 @@ namespace Talk2you.ViewModels
                 End = EndTime,
                 File = VoiceFile
             };
-            // List += newList;
-            return;
             RegistrationDataGrid(newList);
         }
 
@@ -340,7 +338,7 @@ namespace Talk2you.ViewModels
         /// <param name="data">追加したい項目</param>
         public void RegistrationDataGrid(WordInformation data)
         {
-           // list.Add(data);
+            List.Add(data);
         }
 
         /// <summary>
