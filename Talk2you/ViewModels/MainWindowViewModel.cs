@@ -62,8 +62,10 @@ namespace Talk2you.ViewModels
          * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
          */
 
-        VoicePlayer voicePlayer = new VoicePlayer();        //dataList用
-        MainWindow ViewSource = (MainWindow)Application.Current.MainWindow;
+        public MainWindowViewModel vm = new MainWindowViewModel();
+        public VoicePlayer voicePlayer = new VoicePlayer();
+        public ProjectManager projectManager = new ProjectManager();
+        public MainWindow ViewSource = (MainWindow)Application.Current.MainWindow;
 
         //巻き戻し早送り移動秒数指定
         private const double kFastTime = 0.1;
@@ -72,11 +74,46 @@ namespace Talk2you.ViewModels
         // 時間を切り捨てる際 少数何桁で切り捨てるか
         private const int kRoundBy = 3;
 
+        /// <summary>
+        /// １つのセリフ情報を保存するクラス
+        /// </summary>
+        public class WordInformationViewModel
+        {
+            public WordInformation Item { get; set; }
+
+            /// <summary>
+            /// データグリッドのコンテキストメニューの再生をおした時
+            /// </summary>
+            public void DataGridClickPlay(WordInformation data)
+            {
+                Console.WriteLine("てすと");
+                vm.projectManager.GetAllWordInfomation();
+
+            }
+
+            /// <summary>
+            /// dataGridに登録されている項目を編集出来るよう各変数にセットし直す
+            /// </summary>
+            public void DataGridEdit(WordInformation data)
+            {
+
+                Console.WriteLine(data);
+                Console.WriteLine("てすと");
+            }
+
+            /// <summary>
+            /// dataGridに登録されている項目を削除する
+            /// </summary>
+            public void DataGridDelete()
+            {
+                Console.WriteLine("てすと");
+            }
+        }
 
         #region List変更通知プロパティ
-        private ObservableCollection<WordInformation> _List = new ObservableCollection<WordInformation>();
+        private ObservableCollection<WordInformationViewModel> _List = new ObservableCollection<WordInformationViewModel>();
 
-        public ObservableCollection<WordInformation> List
+        public ObservableCollection<WordInformationViewModel> List
 
         {
             get
@@ -329,41 +366,23 @@ namespace Talk2you.ViewModels
                 End = EndTime,
                 File = VoiceFile
             };
-            RegistrationDataGrid(newList);
+
+            WordInformationViewModel item = new WordInformationViewModel()
+            {
+                Item = newList
+            };
+
+            RegistrationDataGrid(item);
         }
+
 
         /// <summary>
         /// dataGridに項目を追加する
         /// </summary>
         /// <param name="data">追加したい項目</param>
-        public void RegistrationDataGrid(WordInformation data)
+        public void RegistrationDataGrid(WordInformationViewModel data)
         {
             List.Add(data);
-        }
-
-        /// <summary>
-        /// データグリッドのコンテキストメニューの再生をおした時
-        /// </summary>
-        public void DataGridClickPlay()
-        {
-            Console.WriteLine("てすと");
-        }
-
-        /// <summary>
-        /// dataGridに登録されている項目を編集出来るよう各変数にセットし直す
-        /// </summary>
-        public void DataGridEdit(WordInformation data)
-        {
-            Console.WriteLine(data);
-            Console.WriteLine("てすと");
-        }
-
-        /// <summary>
-        /// dataGridに登録されている項目を削除する
-        /// </summary>
-        public void DataGridDelete()
-        {
-            Console.WriteLine("てすと");
         }
 
     }

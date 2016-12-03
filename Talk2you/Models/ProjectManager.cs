@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Reflection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,7 +55,24 @@ namespace Talk2you.Models
         /// <returns>string 動作しているフルパス</returns>
         public static string GetLocationPath()
         {   //動作しているパスを返す
-            return System.Reflection.Assembly.GetExecutingAssembly().Location;
+            return Assembly.GetExecutingAssembly().Location;
+        }
+
+        public void GetAllWordInfomation()
+        {
+
+            Type t = typeof(WordInformation);
+
+            //メンバを取得する
+            MemberInfo[] members = t.GetMembers(
+                BindingFlags.Public | BindingFlags.NonPublic |
+                BindingFlags.Instance | BindingFlags.Static |
+                BindingFlags.DeclaredOnly);
+            foreach (MemberInfo m in members)
+            {
+                //メンバの型と、名前を表示する
+                Console.WriteLine("{0} - {1}", m.MemberType, m.Name);
+            }
         }
     }
 }

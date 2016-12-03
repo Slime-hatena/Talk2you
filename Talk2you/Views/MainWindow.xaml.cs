@@ -146,17 +146,5 @@ namespace Talk2you.Views
             MessageBox.Show("ファイルの再生時間が取得できませんでした。\nもう一度ファイルを開いてみてください。");
             return 0;
         }
-
-        private void DataGridClickEdit(object sender, RoutedEventArgs e)
-        {
-            if (((MenuItem)sender).DataContext is WordInformation) {
-                var data = (WordInformation)((MenuItem)sender).DataContext;
-                //データコンテキストの型はWordInformationやで
-            }else
-            {
-                Console.WriteLine("ちがうやで");
-                Console.WriteLine(DataContext);
-            }
-        }
     }
 }
