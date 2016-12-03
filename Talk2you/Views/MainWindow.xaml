@@ -104,7 +104,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="voiceFileText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="音声ファイル" VerticalAlignment="Center"/>
-                <TextBox x:Name="voiceFileBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding Item.VoiceFile}" VerticalAlignment="Center" Width="300"/>
+                <TextBox x:Name="voiceFileBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding VoiceFile,Mode=TwoWay}" VerticalAlignment="Center" Width="300"/>
                 <Button x:Name="voiceFileSelectButton" Grid.Column="2" Content="選択" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -129,13 +129,13 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="serifIdentifierText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ識別子" VerticalAlignment="Center"/>
-                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Item.Identifier, Mode=TwoWay}" VerticalAlignment="Center" Width="300" ToolTip="英数字とアンダースコア(_)ハイフン(-)が使用できます。">
+                <TextBox x:Name="serifIdentifierBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Identifier, Mode=TwoWay}" VerticalAlignment="Center" Width="300" ToolTip="英数字とアンダースコア(_)ハイフン(-)が使用できます。">
                     <i:Interaction.Behaviors>
                         <b:AlphabetsAndNumsBehavior />
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <TextBlock x:Name="categoryText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="カテゴリ" VerticalAlignment="Center"/>
-                <ComboBox x:Name="categoryComboBox" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" ItemsSource="{Binding Source={StaticResource CategoryEnumKey}}" SelectedItem="{Binding Item.Category}"/>
+                <ComboBox x:Name="categoryComboBox" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" ItemsSource="{Binding Source={StaticResource CategoryEnumKey}}" SelectedItem="{Binding Category}"/>
             </Grid>
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
@@ -146,9 +146,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="serifPlainText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="セリフ本文" VerticalAlignment="Center"/>
-                <TextBox x:Name="serifPlainBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Item.VoiceText, Mode=TwoWay}" VerticalAlignment="Center" Width="300"/>
+                <TextBox x:Name="serifPlainBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VoiceText, Mode=TwoWay}" VerticalAlignment="Center" Width="300"/>
                 <TextBlock x:Name="volumeText" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="音量" VerticalAlignment="Center"/>
-                <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding Item.VolumeChange,UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="28" TextAlignment="Right" MaxLength="3" ToolTip="0から100の範囲内で入力してください。">
+                <TextBox x:Name="volumeBox" Grid.Column="3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="{Binding VolumeChange,UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="28" TextAlignment="Right" MaxLength="3" ToolTip="0から100の範囲内で入力してください。">
                     <i:Interaction.Behaviors>
                         <b:NumsBehavior />
                     </i:Interaction.Behaviors>
@@ -168,7 +168,7 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="startTimeText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="開始位置" VerticalAlignment="Center"/>
-                <Slider x:Name="startSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding Item.StartTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
+                <Slider x:Name="startSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding StartTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
                 <Button x:Name="startFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -211,7 +211,7 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="endTimeText" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="終了位置" VerticalAlignment="Center"/>
-                <Slider x:Name="ehdSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding Item.EndTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
+                <Slider x:Name="ehdSlider" Grid.Column="1" HorizontalAlignment="Left" Value="{Binding EndTime}" VerticalAlignment="Center" Width="290" Maximum="{Binding MaximumTime}"/>
                 <Button x:Name="endFastPrevButton" Grid.Column="2" Content="〈〈" HorizontalAlignment="Left" VerticalAlignment="Center"  Width="20" FontWeight="Bold">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -293,7 +293,13 @@
                                 </i:Interaction.Triggers>
                             </MenuItem>
                             <MenuItem Header="----------"/>
-                            <MenuItem Header="編集"/>
+                            <MenuItem Header="編集">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DataGridClickEdit"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
                             <MenuItem Header="削除">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
@@ -305,7 +311,7 @@
                     </DataGrid.Resources>
                     
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="識別子" Width="100" Binding="{Binding Identifier}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="識別子" Width="100" Binding="{Binding Item.Identifier}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -317,7 +323,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="本文" Width="140"  Binding="{Binding Text}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="本文" Width="140"  Binding="{Binding Item.Text}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -329,7 +335,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="カテゴリ" Width="50" Binding="{Binding Category}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="カテゴリ" Width="50" Binding="{Binding Item.Category}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -341,7 +347,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="音量" Width="38" Binding="{Binding Volume}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="音量" Width="38" Binding="{Binding Item.Volume}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -353,7 +359,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="開始秒数" Width="60" Binding="{Binding Start}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="開始秒数" Width="60" Binding="{Binding Item.Start}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -365,7 +371,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="終了秒数" Width="60" Binding="{Binding End}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="終了秒数" Width="60" Binding="{Binding Item.End}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
@@ -377,7 +383,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="ファイル" Width="100" Binding="{Binding File}" IsReadOnly="True" CanUserSort="False">
+                        <DataGridTextColumn Header="ファイル" Width="100" Binding="{Binding Item.File}" IsReadOnly="True" CanUserSort="False">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Background" Value="Transparent" />
