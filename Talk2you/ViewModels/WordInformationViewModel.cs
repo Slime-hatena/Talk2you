@@ -53,6 +53,7 @@ namespace Talk2you.ViewModels
             vm.VoiceFile = Item.File;
 
             //todo 12/4 何故かviewに反映されない
+
         }
 
         /// <summary>
