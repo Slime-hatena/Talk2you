@@ -330,7 +330,7 @@ namespace Talk2you.ViewModels
                 File = VoiceFile
             };
 
-            WordInformationViewModel item = new WordInformationViewModel()
+            WordInformationViewModel item = new WordInformationViewModel(this)
             {
                 Item = newList
             };

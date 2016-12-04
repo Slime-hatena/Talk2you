@@ -23,7 +23,13 @@ namespace Talk2you.ViewModels
     /// </summary>
     public class WordInformationViewModel : ViewModel
     {
-        public MainWindowViewModel vm = new MainWindowViewModel();
+        private MainWindowViewModel Owner;
+
+        public WordInformationViewModel(MainWindowViewModel vm)
+        {
+            Owner = vm;
+        }
+
         public VoicePlayer voicePlayer = new VoicePlayer();
         public ProjectManager projectManager = new ProjectManager();
         public MainWindow ViewSource = (MainWindow)Application.Current.MainWindow;
@@ -44,16 +50,13 @@ namespace Talk2you.ViewModels
         /// </summary>
         public void DataGridClickEdit()
         {
-            vm.Identifier = Item.Identifier;
-            vm.VoiceText = Item.Text;
-            vm.Category = Item.Category;
-            vm.VolumeChange = Item.Volume;
-            vm.StartTime = Item.Start;
-            vm.EndTime = Item.End;
-            vm.VoiceFile = Item.File;
-
-            //todo 12/4 何故かviewに反映されない
-
+            Owner.Identifier = Item.Identifier;
+            Owner.VoiceText = Item.Text;
+            Owner.Category = Item.Category;
+            Owner.VolumeChange = Item.Volume;
+            Owner.StartTime = Item.Start;
+            Owner.EndTime = Item.End;
+            Owner.VoiceFile = Item.File;
         }
 
         /// <summary>
@@ -64,6 +67,7 @@ namespace Talk2you.ViewModels
             Console.WriteLine("てすと");
         }
     }
-
 }
+
+
 
